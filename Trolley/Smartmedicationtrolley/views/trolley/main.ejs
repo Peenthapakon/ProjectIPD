@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ระบบรถเข็นจ่ายยา</title>
+    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+  </head>
+  <script>
+   
+  </script>
+  <body>
+   
+    <%- include ../templetes/templete.ejs %>
+    
+    
+      
+    <div class="container">
+
+      <h1>ระบบรถเข็นจ่ายยา</h1>
+            <% for (let i = 0; i < data.length; i++) {
+                    var count = 1;
+                    count = count+i;
+                    
+           } %>
+        <div class="row">
+        <!--แสดงรถเข็น-->
+        <div class="col-mb-3  col-xl-3 col-md-4">
+          <div class="card text-white bg-info mb-3" >
+            <div class="card-header">รถเข็นทั้งหมด</div>
+            <div class="card-body">
+         
+               
+                 <h3 class="card-text"> <%= count  %>  คัน</h3>
+               
+            </div>
+          </div>
+        </div>
+        <div class="col-mb-3 col-xl-3 col-md-4">
+          <div class="card text-white bg-primary mb-3" >
+            <div class="card-header">รถเข็นพร้อมจัดยา</div>
+            <div class="card-body">
+              <h3 class="card-text"><%= count  %> คัน</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-mb-3  col-xl-3 col-md-4">
+          <div class="card text-white bg-success " >
+            <div class="card-header">รถเข็นจัดยาเสร็จแล้ว</div>
+            <div class="card-body">
+              <h3 class="card-text">0 คัน</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-mb-3 col-xl-3 col-md-4">
+          <div class="card text-white bg-warning " >
+            <div class="card-header">จำนวนรถเข็นอยู่ระหว่างจัดยา</div>
+            <div class="card-body">
+              <h3 class="card-text">0 คัน</h3>
+            </div>
+          </div>
+        </div>
+         <!--'''แสดงรถเข็น-->
+      </div>
+      <h3><a class="btn btn-primary" href="/trolley/add">+เพิ่มรถเข็นใหม่</a></h3>
+      <!--วนloopดึงข้อมูลรถเข็น-->
+      <div class="row">
+        <div class="col-xl-12 ">
+          <div class="card"style="background-color: lightsteelblue;">
+            <div class="card-body">
+            
+              <% if (data.length > 0) {%>
+               
+                <% for (let i of data) {%>
+                  <a class="btn btn-sm btn-info" href="/trolley/detail/<%= i.id %>">
+                    <img src="/images/green.jpg" alt="" class="card-img-top rounded" style="width:120px">
+                    
+                    </a>
+                    <a class="btn btn-sm btn-danger"  href="/trolley/delete/<%= i.id %>" onclick="return confirm('คุณแน่ใจต้องการลบข้อมูลนี้หรือไม่?')">ลบข้อมูล</a>
+                    
+                <%} %> 
+
+           <% }%>
+            
+            </form>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

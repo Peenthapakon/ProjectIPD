@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดยา</title>
+</head>
+<body>
+    <%- include ../templetes/templete2.ejs %>
+    <div class="container">
+        <div class="row my-2 ">
+            <div class="col-6  ">
+              <div class="row card-body">
+                <!--รูปรถเข็น-->
+                <div class="col-mb-4 col-xl-4 col-md-4 ">
+      
+                  <img src="/images/user.jpg" alt="" class="card-img-top">
+      
+                </div>
+                <div class="col-mb-8 col-xl-8 col-md-8 card">
+                  <table class="card-body">
+                    <tbody>
+                      <tr>
+                        <th scope="row">รหัสHN</th>
+                        <td>300000</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ชื่อผู้ป่วย</th>
+                        <td>ฐาปกรณ์ ขรัวทองเขียว</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">ลิ้นชัก</th>
+                        <td>DH2</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">เตียง</th>
+                        <td>A/1</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">สถานะ</th>
+                        <td>ว่าง</td>
+                      </tr>
+      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+                      <!--ค้นหายา-->
+        <div class="row my-3">
+            <div class="form-group">
+                <form class="form-inline my-2 my-lg-0">
+              
+                    <input class="form-control mr-sm-2" type="search" placeholder="รหัสHN" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">ค้นหา</button>
+                
+                    <input class="form-control mr-sm-2" type="search" placeholder="รหัสยา" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">ค้นหา</button>
+               
+                </form>
+            </div>
+        </div>
+            </div>
+            <div class="col-6">
+                <div class="col-xl-12 card-body ">
+                    <div class="row">
+                      <div class="col-xl-4 card bg-info">
+                       <div class="card-body">
+                           <h5>จำนวนมื้อยา</h5>
+                       </div>
+                      </div>
+                      <div class="col-xl-8 card">
+                        <table class="table">
+                            <th>ชื่อยา</th>
+                            <th>ชื่อมื้อยา</th>
+                            <th>เวลา</th>
+                          <tbody>
+                            <tr>
+                                <td>แก้ปวด</td>
+                                <td>ก่อน/เช้า</td>
+                                <td>8:00:00</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="card" >
+                            <button class="btn" ><img src="/images/paydrug.jpg" alt="" srcset="" style="width: 10rem;"></button>
+                        </div>
+                            
+                        
+                    </div>
+                    
+  
+                  
+                </div>
+            </div>
+        </div>
+    
+
+
+
+        <!--แสดงรายการยา-->
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <th>#</th>
+                    <th>รหัสยา</th>
+                    <th>ชื่อยา</th>
+                    <th>ชื้อมื้อยา</th>
+                    <th>ช่องลิ้นชัก</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>N000110</td>
+                        <td>แก้ปวด/ลดอักเสบ </td>
+                        <td>ก่อนเช้า</td>
+                        <td>CH1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

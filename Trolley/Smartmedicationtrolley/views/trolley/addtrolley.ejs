@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<!--css class box-->
+<style>
+    .box{
+        background-color: #C0DCFA; 
+        padding: 5px;
+        margin: 4px;
+    }
+</style>
+<body>
+    <%- include ../templetes/templete.ejs %>
+    <div class="container">
+        <h6>เพิ่มรถเข็นยาใหม่</h6>
+        <div class="form-row-md bg-info box rounded-sm">
+            <h4 >ข้อมูลเข็นจ่ายยา</h4>
+        </div>
+        <h1>
+            
+        </h1>
+        <% if (locals.errors) {%>
+            
+        
+        <ul class="alert alert-danger">
+            <% Object.values(errors).forEach(function(err) {%>
+                 <li><%= err.msg %></li>
+            <%}); %>
+        </ul>
+        <%} %>
+        <!--รายละเอียด form รถเข็นจ่ายยา-->
+        <form  method="POST">
+            <div class=" box rounded-sm " >
+                    <!--ส่วนบน-->
+                    <div class="form-row justify-content-center">
+                        <div class=" form-group col-md-3">
+                            <label for="">รหัสรถเข็นจ่ายยา</label>
+                            <input type="text" name="code_drug" id="code_drug" class="form-control"  placeholder="รหัสตู้ยา">
+                        </div>
+                        <div class="form-group  col-md-3    ">
+                            <label for="">ชื่อแผนก</label>
+                            <select name="deparmet" id="deparment_drug"  class="form-control">
+                                <option value="">เลือกชื่อแผนก</option>
+                                <option value="อายุรกรรม">อายุรกรรม</option>
+                                <option value="ICU">ICU</option>
+                                
+                            </select>
+                        </div>
+                        <div class="form-group  col-md-3">
+                            <label for="">จำนวนลิ้นชัก/ชั้น</label>
+                            <input type="number" name="drawer_drug" id="drawer_drug" max="7" class="form-control" placeholder="จำนวนลิ้นชัก/ชั้น">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="">จำนวนชั้น</label>
+                            <input type="number" name="layer" id="layer" max="5" class="form-control" placeholder="
+                            จำนวนชั้น">
+
+                        </div>
+                    </div>
+                    <!--/ส่วนบน-->
+                    <!--ส่วนล่าง-->
+                    
+                    <div class="form-row justify-content-center ">
+                        <div class="form-group col-md-3">
+                            <label for="name">ชื่อ</label>
+                            <input type="text" name="fname" id="fname" class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="name">นามสกุล</label>
+                            <input type="text" name="lname" id="lname" class="form-control">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="position">ตำแหน่ง</label>
+                            <select name="position" id="position"  class="form-control">
+                                <% for (const key of nurse) {%>
+                                    <option value="<%= key.nurse_id %>"><%=key.nurse_position %></option>
+                                <%} %>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="tel">เบอร์โทรศัพท์</label>
+                            <input type="tel" name="tel" id="tel"class="form-control">
+                        </div>
+                    </div>
+                    <!--/ส่วนล่าง-->
+        
+            
+                
+            </div>
+            <div class="form-row justify-content-end">
+                <div class="form-group col-12 ">
+                    <input type="submit" value="ยกเลิก" class="btn btn-danger float-right ">
+                    <input type="submit" value="บันทึก" class="btn btn-primary float-right">
+                 </div>
+             </div>
+        </form>
+    </div>
+    
+</body>
+</html>

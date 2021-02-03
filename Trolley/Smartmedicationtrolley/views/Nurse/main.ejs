@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+   .ct:hover {
+    background: #666;
+    opacity: 0.5;
+  }
+
+
+  th {
+    padding: 1em;
+  }
+</style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>หน้าหลักพยาบาล</title>
+</head>
+
+<body onload="startTime()">
+  <%- include ../templetes/templete2.ejs %>
+  <div class="container">
+    <div class="row" style="margin-top: 2em;" id="ece">
+      <div class="col-4">
+        <!----->
+        <div class="row"
+          style="display:inline-block;padding: 1em;margin-top: 0.5em;border-radius: 0.2em;background-color: lightskyblue;">
+          <!--รูปรถเข็น-->
+          <div style="float:left;">
+            <img src="/images/good.png" alt="" class="img-thumbnail img-fluid" style="width: 110px;">
+          </div>
+          <div style="float:right;margin-left: 0.5em;background-color:white;border-radius: 0.2em;padding-right: em;">
+            <h6>รถเข็นยา:<%= nurse[0].room_unit%></h6>
+            <h6>ผู้รับผิดชอบ:<%= nurse[0].nurse_firstname + nurse[0].nurse_lastname%></h6>
+            <h6>ตำแหน่ง:<%= nurse[0].nurse_position%></h6>
+            <h6>เบอร์โทรศัพท์:<%= nurse[0].nurse_tel%></h6>
+            <h6>สถานะ:ว่าง</h6>  
+          </div>
+        </div>
+        <!----->
+        <div class="row" style="margin-top: 0.5em;">
+          <form class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="รหัสHN" aria-label="Search" style="width:30%;" name="hn_id">
+            <input class="form-control mr-sm-2" type="search" placeholder="รหัสยา" aria-label="Search" style="width: 30%;margin-left:5px;" name="hn_drug">
+            <button class="btn btn-outline-success" type="submit" id="btn">ยืนยัน</button>
+          </form>
+        </div>
+        <!----->
+        <div class="row ">
+          <div id="btn3"style="display:inline-flexbox;padding:1em;border-radius:0.2em ;margin-top: 1em;background-color: lightskyblue;overflow: auto;position:absolute;max-width: 100%;">
+            <div class="btn-group-sm" data-toggle="button">
+              
+              
+              <% for (let index = 1; index <= patients.length ; index++) {%>
+                
+                <% if (index<10) {%>
+                  <button class="btn btn-info btn2" style="margin: 1px;max-width: 100%;" data-toggle="tab" data-target="#patients<%= index %>" >
+                    <img src="/images/medical1.png" alt=""  height="15px">
+                     HN0<%= index %> 
+                    </button>
+                  <%}else{%>
+                    <button class="btn btn-info btn2" style="margin: 1px;max-width: 100%;" data-toggle="tab" data-target="#patients<%= index %>" >
+                    <img src="/images/medical1.png" alt=""  height="15px">
+                     HN<%= index %> 
+                    </button>
+                  <%}%>
+                  
+              <%} %>
+         
+            </div>
+          </div>
+         
+        </div>
+        <!----->
+
+      </div>
+      <div class="col-8">
+       
+          
+      
+          <div class="collapse show " id="dashboad" data-parent="#ece">
+            <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightsteelblue;border-radius: 0.2em;">
+              <div style="float:right;margin-left: 0.5em;"class="text-center">
+                <div class="card text-white bg-primary " style="width: 10rem;">
+                  <div class="card-header">จำนวนผู้ป่วย</div>
+                  <div class="card-body">
+
+                    <h5 class="card-title"><%= patients.length%>คน</h5>
+                  </div>
+                </div>
+              </div>
+              <div style="float:right;margin-left: 0.5em;"class="text-center">
+                <div class="card text-white bg-success " style="width: 10rem;">
+                  <div class="card-header">จ่ายยาแล้ว</div>
+                  <div class="card-body">
+                    <h5 class="card-title">99คน</h5>
+                  </div>
+                </div>
+              </div>
+              <div style="float:right;margin-left: 0.5em;"class="text-center">
+                <div class="card text-white bg-warning " style="width: 10rem;">
+                  <div class="card-header">รอจ่ายยา</div>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= patients.length%>คน</h5>
+                  </div>
+                </div>
+              </div>
+              <div style="float:right;margin-left: 0.5em;"class="text-center">
+                <div class="card text-white bg-info " style="width: 10rem;">
+                  <div class="card-header">จ่ายยารอบถัดไป</div>
+                  <div class="card-body">
+                    <h5 class="card-title">9.99-9.99</h5>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+      
+          <div class="collapse tab-plane fade " id="patients1" data-parent="#ece">
+            <div class="row " style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
+              <div style="float:left">
+                <img src="/images/user.png" alt="" class="img-thumbnail img-fluid" style="width: 130px;">
+              </div>
+              <div style="float:right;margin-left: 0.5em;" >
+                  <h6>รหัสHN:<%= patients[0].patients_id%></h6>
+                  <h6>ชื่อผู้ป่วย:<%= patients[0].first_name  + patients[0].last_name%></h6>
+                  <h6>ลิ้นชัก:<%= patients[0].drawer_number%></h6>
+                  <h6>เตียง:<%= patients[0].patient_bed%></h6>
+              </div>
+            </div>
+            <div class="row " style="margin: 0.5em;">
+                <div class="row  " style="margin: 0.5em;" style="float: right;">
+                  <div class="tab-pane fade show active">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item nav-pills" role="presentation">
+                    <a class="nav-link active " id="home-tab" data-toggle="tab" href="#drugall" role="tab" aria-controls="drugall" aria-selected="true">รายการยาทั้งหมด
+                      <span class="badge badge-danger">xx</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-pills" role="presentation">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#pay1" role="tab" aria-controls="pay" aria-selected="false">จ่ายแล้ว
+                      <span class="badge badge-danger">xx</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-pills" role="presentation">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#wait" role="tab" aria-controls="wait" aria-selected="false">รอจ่ายยา
+                      <span class="badge badge-danger">xx</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-pills" role="presentation">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#return" role="tab" aria-controls="return" aria-selected="false">คืนยา
+                      <span class="badge badge-danger">xx</span>
+                    </a>
+                  </li>
+                  <li class="nav-item nav-pills" role="presentation">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#skip" role="tab" aria-controls="return" aria-selected="false">เลื่อนมื้อยา
+                    
+                  </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="drugall" role="tabpanel" aria-labelledby="home-tab">
+                      <div style="overflow: auto;height: 100%;position:absolute" >
+                        <table class="table table-hover" >
+                          <thead class="thead-light" >
+                            <th>#</th>
+                            <th>รหัสยา</th>
+                            <th>ชื่อยา</th>
+                            <th>ชื่อมื้อยา</th>
+                            <th>ช่องลิ้นชักยา</th>
+                      
+                          </thead>
+                          <tbody class="text-center" >
+                        
+        
+                            <% for (let index = 1; index < 10; index++) {%>
+        
+                            <tr id="dex" >
+                              <td>1</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xx</td>
+                            </tr>
+        
+                            <%} %>
+        
+                          </tbody>
+        
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="pay" role="tabpanel" aria-labelledby="profile-tab">
+                      <div style="overflow: auto;height: 100%;position:absolute"  >
+                        <table class="table table-hover" id="cb" >
+                          <thead class="thead-light" >
+                            <th>#</th>
+                            <th>รหัสยา</th>
+                            <th>ชื่อยา</th>
+                            <th>ชื่อมื้อยา</th>
+                            <th>ช่องลิ้นชักยา</th>
+                          </thead>
+                          <tbody class="text-center" >
+                        
+        
+                            <% for (let index = 1; index < 10; index++) {%>
+        
+                            <tr id="dex" >
+                              <td>1</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xx</td>
+                            </tr>
+        
+                            <%} %>
+        
+                          </tbody>
+        
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="wait" role="tabpanel" aria-labelledby="contact-tab">
+                      <div style="overflow: auto;height: 100%;position:absolute"  id="wait">
+                        <table class="table table-hover" id="cb" >
+                          <thead class="thead-light" >
+                            <th>#</th>
+                            <th>รหัสยา</th>
+                            <th>ชื่อยา</th>
+                            <th>ชื่อมื้อยา</th>
+                            <th>ช่องลิ้นชักยา</th>
+                          </thead>
+                          <tbody class="text-center" >
+                        
+        
+                            <% for (let index = 1; index < 10; index++) {%>
+        
+                            <tr id="dex" >
+                              <td>1</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xx</td>
+                            </tr>
+        
+                            <%} %>
+        
+                          </tbody>
+        
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="return" role="tabpanel" aria-labelledby="profile-tab">
+                      <div style="overflow: auto;height: 100%;position:absolute" >
+                        <table class="table table-hover"  >
+                          <thead class="thead-light" >
+                            <th>#</th>
+                            <th>รหัสยา</th>
+                            <th>ชื่อยา</th>
+                            <th>ชื่อมื้อยา</th>
+                            <th>ช่องลิ้นชักยา</th>
+                          </thead>
+                          <tbody class="text-center" >
+                        
+        
+                            <% for (let index = 1; index < 10; index++) {%>
+        
+                            <tr id="dex" >
+                              <td>1</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xx</td>
+                            </tr>
+        
+                            <%} %>
+        
+                          </tbody>
+        
+                        </table>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="skip" role="tabpanel" aria-labelledby="profile-tab">
+                      <div style="overflow: auto;height: 100%;position:absolute" >
+                        <table class="table table-hover"  >
+                          <thead class="thead-light" >
+                            <th>#</th>
+                            <th>รหัสยา</th>
+                            <th>ชื่อยา</th>
+                            <th>ชื่อมื้อยา</th>
+                            <th>ช่องลิ้นชักยา</th>
+                            <th>รายการ</th>
+                          </thead>
+                          <tbody class="text-center" >
+                        
+        
+                            <% for (let index = 1; index < 10; index++) {%>
+        
+                            <tr id="dex" >
+                              <td>1</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xxxxxx</td>
+                              <td>xx</td>
+                              <td><select name="" id="" >
+                                <option value="1">มื้อเที่ยง/ก่อนอาหาร</option>
+                                <option value="1">มื้อเที่ยง/หลังอาหาร</option>
+                                <option value="1">มื้อเย็น</option>
+                                <option value="1">ยกเลิกการจ่ายยา</option>
+                              </select></td>
+                            </tr>
+        
+                            <%} %>
+        
+                          </tbody>
+                        
+                        </table>
+                        <button class="btn btn-success float-right" type="submit">ยืนยัน</button>
+                      </div>
+                    </div>
+                </div>
+                
+                </div>
+                
+              </div>
+            </div>
+          </div>
+         
+      </div>
+    </div>
+
+
+  </div>
+  
+</body>
+<script>
+$('#btn').click(()=>{
+  alert('tets')
+})
+$(document).ready(function(){
+  $('.btn2').click(()=>{
+    $('#dashboad').hide();
+  })
+  $().click(()=>{
+    $('#dashboad').show();
+  })
+
+    
+  
+});
+  </script>
+</html>

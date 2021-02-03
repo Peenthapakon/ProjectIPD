@@ -1,0 +1,61 @@
+var data_set =[{
+  c_code:"00001",
+  unit:"ICU",
+  num_drawer:{
+    matrix:{
+      id:1,
+      number:7
+    },
+    matrix:{
+      id:2,
+      number:7
+    },
+    matrix:{
+      id:3,
+      number:7
+    },
+    matrix:{
+      id:4,
+      number:7
+    },
+    matrix:{
+      id:5,
+      number:7
+    },
+  }
+  
+  ,
+  num_box:5,
+  first_n:"คิดดี",
+  last_n:"ทำดี",
+  position:"พยาบาลชำนาญการพิเศษ",
+  tel:"0887867489"
+},{
+  c_code:"00002",
+  unit:"ICU",
+  num_drawer:{
+    matrix:{
+      id:1,
+      number:7
+    },
+    matrix:{
+      id:2,
+      number:7
+    },
+    matrix:{
+      id:3,
+      number:7
+    },
+    matrix:{
+      id:4,
+      number:7
+    },
+  },
+  num_box:4,
+  first_n:"คนไทย",
+  last_n:"หัวใจ  ",
+  position:"พยาบาลชำนาญการพิเศษ",
+  tel:"08786738"
+}]
+
+module.exports = data_set;

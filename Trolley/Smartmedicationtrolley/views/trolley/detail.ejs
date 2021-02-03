@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>รายละเอียดรถเข็น</title>
+</head>
+<style>
+  .ct:hover {
+    background: #666;
+    opacity: 0.5;
+  }
+
+  th {
+    padding: 1em;
+  }
+  p{
+    font-size: 14px;
+    display: inline;
+   
+  }
+</style>
+
+<body>
+
+
+  <%- include ../templetes/templete.ejs %>
+  <div class="container">
+  
+    <div class="row" style="margin-top: 2em;" id="ece">
+      <div class="col-xl-4">
+        <div class="row"
+          style="padding: 1em;margin-top: 0.5em;border-radius: 0.2em;background-color: lightskyblue;">
+          <!--รูปรถเข็น-->
+          <div class="col" >
+            <img src="/images/good.png" alt="" class="img-thumbnail img-fluid" style="width: 140px;">
+          </div>
+          <div class="col text-lef" style="background-color: white;border-radius: 0.2em;margin-bottom: 0.2em;">
+            <!--รับค่าจาก /detail/:id-->
+          
+          <% for(let key of trolley){%>
+            <p>รถเข็นยา:<%=key.room_unit%> <br>
+              ผู้รับผิดชอบ:<%=key.nurse_firstname + key.nurse_lastname%>
+              ตำแหน่ง:<%=key.nurse_position%>
+              เบอร์โทรศัพท์:<%=key.nurse_tel%>
+              สถานะ:ว่าง</p>
+          <%}%>
+                
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 0.5em;">
+          <form class="form-inline" method="POST"   >
+            <input class="form-control mr-sm-2" type="search"  name="drug" placeholder="รหัสยา" aria-label="Search" width="">
+            <button class="btn btn-outline-success" id="btn-1" type="submit">ยืนยัน</button>
+          </form>
+        </div>
+        
+        <div class="row "
+          style="display:inline-flexbox;padding:1em;border-radius:0.2em ;margin-top: 1em;background-color: lightskyblue;">
+          <!--วนลูปจำนวน trolley.num_box; /detail/:id-->
+        <% for(let key of trolley){%>
+
+          <% for (let index = 1; index <= key.row_number; index++) {%>
+            <img src="/images/box<%= index %>.png" alt="" class="card-img-top rounded img-thumbnail img-fluid ct"
+            style="width: 110px;margin:1px;" data-toggle="collapse" data-target=".box<%- index %> " >
+         <% } %> 
+        </div>
+        <%}%>
+        <!--เมนู-->
+        
+          <div class="row " 
+          style="display: inline-flexbox;padding: 1em;background-color: lightskyblue;margin-top: 0.5em;border-radius: 0.2em;">
+                
+                  
+              <img src="/images/info3.png" alt="" class="card-img-top rounded img-thumbnail img-fluid ct"
+                   style="width:110px;margin:1px;"  name=1 data-toggle="collapse" href="#patients">
+              <img src="/images/infodrug.png" alt="" class="card-img-top rounded img-thumbnail img-fluid ct"
+              style="width:110px;margin:1px;" data-toggle="collapse" href="#infodrug">
+        </div>
+        
+        
+      </div>
+      <div class="col-8">
+        <!--แสดงรายละเอียดยา-->
+        <!-- check trolley.num_drawer.id  แต่ละตัวเพื่อกำหนด drawer -->    
+        <div   role="alert">
+          <%- messages() %>
+         
+        </div> 
+        
+        <!--row1-->
+        <div class="collapse box1"  data-parent="#ece">
+          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
+            <!--รูปรถเข็น-->
+            <div style="float:left;">
+              <img src="/images/dw.png" alt="" class="img-thumbnail img-fluid" style="width: 150px;">
+            </div>
+            <div style="float:right;margin-left: 0.5em;">
+                <% var id = trolley[0].id  %>
+                <% if (trolley[0].id = id ) {%>
+                  <h6>หมาเลขกล่อง:หมายเลข1</h6>
+                  <h6>จำนวนลิ้นชัก:<%=trolley[0].count_drawer%> ลิ้นชัก</h6>
+                  <h6>สถานะจัดยา:<div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div></h6>
+                <%} %>
+                
+           
+
+            
+              
+
+            </div>
+          </div>
+          <div class="row " style="margin: 0.5em;">
+            <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+            <% if (patients.length > 0) {%>
+            <% for (let index = 0; index < trolley[0].count_drawer; index++) {%>
+              <% if (index < patients.length) {%>
+              <button type="button" class="btn btn-secondary" data-toggle="tab" href=".test">
+                <img src="/images/medical1.png" alt="" width="32px" height="32px">
+                  HN<%= patients[index].patients_id%>
+                  <%= patients[index].patient_bed%> 
+              </button>
+              <%} %>
+            <%} %>
+            <%} %> 
+            </div>
+            
+            <div class="row   tab-pane fade  active test" style="margin: 0.5em;" style="float: right;">
+              
+                <div style="overflow: auto;height: 55%;position:absolute;">
+                <button class="btn btn-primary">เปิดลิ้นชักยา</button>
+                <table class="table table-hover" id="cb" >
+                  <thead class="thead-light" >
+                    <th>#</th>
+                    <th>รหัสยา</th>
+                    <th>ชื่อยา</th>
+                    <th>ชื่อมื้อยา</th>
+                    <th>ช่องลิ้นชักยา</th>
+                  </thead>
+                  <tbody class="text-center" >
+                    <tr>
+                      <td>xxxx</td>
+                      <td>xxxx</td>
+                      <td>xxxx</td>
+                      <td>xxxx</td>
+
+                    </tr>
+                  </tbody>
+
+                </table>
+                
+              
+              </div>
+            </div>
+          </div>
+          <!--***แสดงรายละเอียดยา-->
+        </div>
+       <!--row2-->
+       <div class="collapse box2"  data-parent="#ece">
+        <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
+          <!--รูปรถเข็น-->
+          <div style="float:left;">
+            <img src="/images/dw.png" alt="" class="img-thumbnail img-fluid" style="width: 150px;">
+          </div>
+          <div style="float:right;margin-left: 0.5em;">
+            <% var id = trolley[0].id  %>
+                <% if (trolley[0].id = id ) {%>
+                  <h6>หมาเลขกล่อง:หมายเลข2</h6>
+                  <h6>จำนวนลิ้นชัก:<%=trolley[0].count_drawer%> ลิ้นชัก</h6>
+                  <h6>สถานะจัดยา:<div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div></h6>
+                <%} %>
+          </div>
+        </div>
+        <div class="row " style="margin: 0.5em;">
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+          <% if (patients.length > 0) {%>
+         
+          <% for (let index = 7; index < trolley[0].count_drawer+7; index++) {%>
+            <% if (index < patients.length) {%>
+            <button type="button" class="btn btn-secondary" data-toggle="tab" href=".test">
+              <img src="/images/medical1.png" alt="" width="32px" height="32px">
+                HN<%= patients[index].patients_id%>
+                <%= patients[index].patient_bed%> 
+            </button>
+            <%} %>
+          <%} %>
+          <%} %> 
+          </div>
+          
+          <div class="row   tab-pane fade  active test" style="margin: 0.5em;" style="float: right;">
+            
+              <div style="overflow: auto;height: 55%;position:absolute;">
+              <button class="btn btn-primary">เปิดลิ้นชักยา</button>
+              <table class="table table-hover" id="cb" >
+                <thead class="thead-light" >
+                  <th>#</th>
+                  <th>รหัสยา</th>
+                  <th>ชื่อยา</th>
+                  <th>ชื่อมื้อยา</th>
+                  <th>ช่องลิ้นชักยา</th>
+                </thead>
+                <tbody class="text-center" >
+                  <tr>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+
+                  </tr>
+                </tbody>
+
+              </table>
+              
+            
+            </div>
+          </div>
+        </div>
+        <!--***แสดงรายละเอียดยา-->
+      </div>
+       <!--row3-->
+       <div class="collapse box3"  data-parent="#ece">
+        <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
+          <!--รูปรถเข็น-->
+          <div style="float:left;">
+            <img src="/images/dw.png" alt="" class="img-thumbnail img-fluid" style="width: 150px;">
+          </div>
+          <div style="float:right;margin-left: 0.5em;">
+            <% var id = trolley[0].id  %>
+                <% if (trolley[0].id = id ) {%>
+                  <h6>หมาเลขกล่อง:หมายเลข3</h6>
+                  <h6>จำนวนลิ้นชัก:<%=trolley[0].count_drawer%> ลิ้นชัก</h6>
+                  <h6>สถานะจัดยา:<div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div></h6>
+                <%} %>
+          </div>
+        </div>
+        <div class="row " style="margin: 0.5em;">
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+          <% if (patients.length > 0) {%>
+          
+          <% for (let index = 15; index < trolley[0].count_drawer+14; index++) {%>
+            <% if (index < patients.length) {%>
+              <button type="button" class="btn btn-secondary" data-toggle="tab" href=".test">
+              <img src="/images/medical1.png" alt="" width="32px" height="32px">
+                HN<%= patients[index].patients_id%>
+                <%= patients[index].patient_bed%> 
+            </button>
+            <%} %>
+            
+          <%} %>
+          <%} %> 
+          </div>
+          
+          <div class="row   tab-pane fade  active test" style="margin: 0.5em;" style="float: right;">
+            
+              <div style="overflow: auto;height: 55%;position:absolute;">
+              <button class="btn btn-primary">เปิดลิ้นชักยา</button>
+              <table class="table table-hover" id="cb" >
+                <thead class="thead-light" >
+                  <th>#</th>
+                  <th>รหัสยา</th>
+                  <th>ชื่อยา</th>
+                  <th>ชื่อมื้อยา</th>
+                  <th>ช่องลิ้นชักยา</th>
+                </thead>
+                <tbody class="text-center" >
+                  <tr>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+
+                  </tr>
+                </tbody>
+
+              </table>
+              
+            
+            </div>
+          </div>
+        </div>
+        <!--***แสดงรายละเอียดยา-->
+      </div>
+       <!--row4-->
+       <div class="collapse box4"  data-parent="#ece">
+        <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
+          <!--รูปรถเข็น-->
+          <div style="float:left;">
+            <img src="/images/dw.png" alt="" class="img-thumbnail img-fluid" style="width: 150px;">
+          </div>
+          <div style="float:right;margin-left: 0.5em;">
+            <% var id = trolley[0].id  %>
+                <% if (trolley[0].id = id ) {%>
+                  <h6>หมาเลขกล่อง:หมายเลข4</h6>
+                  <h6>จำนวนลิ้นชัก:<%=trolley[0].count_drawer%> ลิ้นชัก</h6>
+                  <h6>สถานะจัดยา:<div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div></h6>
+                <%} %>
+
+          </div>
+        </div>
+        <div class="row " style="margin: 0.5em;">
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+          <% if (patients.length > 0) {%>
+          
+          <% for (let index = 22; index < trolley[0].count_drawer+21; index++) {%>
+            <% if (index < patients.length) {%>
+              <button type="button" class="btn btn-secondary" data-toggle="tab" href=".test">
+              <img src="/images/medical1.png" alt="" width="32px" height="32px">
+                HN<%= patients[index].patients_id%>
+                <%= patients[index].patient_bed%> 
+            </button>
+            <%} %>
+            
+          <%} %>
+          <%} %> 
+          </div>
+          
+          <div class="row   tab-pane fade  active test" style="margin: 0.5em;" style="float: right;">
+            
+              <div style="overflow: auto;height: 55%;position:absolute;">
+              <button class="btn btn-primary">เปิดลิ้นชักยา</button>
+              <table class="table table-hover" id="cb" >
+                <thead class="thead-light" >
+                  <th>#</th>
+                  <th>รหัสยา</th>
+                  <th>ชื่อยา</th>
+                  <th>ชื่อมื้อยา</th>
+                  <th>ช่องลิ้นชักยา</th>
+                </thead>
+                <tbody class="text-center" >
+                  <tr>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+
+                  </tr>
+                </tbody>
+
+              </table>
+              
+            
+            </div>
+          </div>
+        </div>
+        <!--***แสดงรายละเอียดยา-->
+      </div>
+       <!--row5-->
+       <div class="collapse box5"  data-parent="#ece">
+        <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
+          <!--รูปรถเข็น-->
+          <div style="float:left;">
+            <img src="/images/dw.png" alt="" class="img-thumbnail img-fluid" style="width: 150px;">
+          </div>
+          <div style="float:right;margin-left: 0.5em;">
+            <% var id = trolley[0].id  %>
+                <% if (trolley[0].id = id ) {%>
+                  <h6>หมาเลขกล่อง:หมายเลข5</h6>
+                  <h6>จำนวนลิ้นชัก:<%=trolley[0].count_drawer%> ลิ้นชัก</h6>
+                  <h6>สถานะจัดยา:<div class="spinner-grow text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div></h6>
+                <%} %>
+
+          </div>
+        </div>
+        <div class="row " style="margin: 0.5em;">
+          <div class="btn-group btn-group-sm btn-group-toggle" data-toggle="buttons">
+          <% if (patients.length > 0) {%>
+          
+          <% for (let index = 29; index < trolley[0].count_drawer+28; index++) {%>
+            <% if (index < patients.length) {%>
+              <button type="button" class="btn btn-secondary" data-toggle="tab" href=".test">
+              <img src="/images/medical1.png" alt="" width="32px" height="32px">
+                HN<%= patients[index].patients_id%>
+                <%= patients[index].patient_bed%> 
+            </button>
+            <%} %>
+            
+          <%} %>
+          <%} %> 
+          </div>
+          
+          <div class="row   tab-pane fade  active test" style="margin: 0.5em;" style="float: right;">
+            
+              <div style="overflow: auto;height: 55%;position:absolute;">
+              <button class="btn btn-primary">เปิดลิ้นชักยา</button>
+              <table class="table table-hover" id="cb" >
+                <thead class="thead-light" >
+                  <th>#</th>
+                  <th>รหัสยา</th>
+                  <th>ชื่อยา</th>
+                  <th>ชื่อมื้อยา</th>
+                  <th>ช่องลิ้นชักยา</th>
+                </thead>
+                <tbody class="text-center" >
+                  <tr>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+                    <td>xxxx</td>
+
+                  </tr>
+                </tbody>
+
+              </table>
+              
+            
+            </div>
+          </div>
+        </div>
+        <!--***แสดงรายละเอียดยา-->
+      </div>
+
+        <!--รายชื่อผู้ป่วย-->
+        
+        <div class="collapse" id="patients"name="iframe_a" data-parent="#ece">
+        
+          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;w">
+            <div style="float:left;">
+              <img src="/images/f1.jpg" alt="" class="img-thumbnail img-fluid" style="width: 130px;">
+            </div>
+            <div style="float:right;margin-left: 0.5em;">
+  
+              <h6>
+                ข้อมูลผู้ป่วยห้อง<%= trolley[0].room_unit%></h6>
+              <h6>จำนวนทั้งหมด	<%= patients.length%> คน</h6>
+          
+            </div>
+          </div>
+          <!-- รายชื่อผู่ป่วย-->
+          
+            <div class="row " style="margin: 0.5em;">
+            <div class="row   tab-pane fade show active " style="margin: 0.5em;" style="float: right;">
+              <div style='overflow: auto;height: 55%;position:absolute';>
+                <table class="table table-hover" >
+                <thead class="thead-light">
+                    <th>#HN</th>
+                    <th>ชื่อสกุล</th>
+                    <th>ลิ้นชัก</th>
+                    <th>เตียง</th>
+                </thead>
+                <tbody>
+                  
+                <% for (const key of patients) {%>
+                  <tr>
+                    <td><%= key.patients_id %></td>
+                    <td><%= key.first_name +" "+ key.last_name %></td>
+                    <td><%= key.drawer_number %></td>
+                    <td><%= key.patient_bed %></td>
+                  </tr>
+                <%} %>
+    
+                  <!-- วน loop คิวรี่ข้อมูลผู้ป่วยออกมาดู -->
+                  
+              </tbody>
+            </table>  
+              </div>
+              
+                  
+            </div>
+          </div>
+         
+          
+        </div>
+        
+        <!--รายการจ่ายยาและร รายการคืนยา-->
+
+        <div class="collapse" id="infodrug" data-parent="#ece">
+            
+          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;w">
+            <div style="float:left;">
+              <img src="/images/info.png" alt="" class="img-thumbnail img-fluid" style="width: 130px;">
+            </div>
+            <div style="float:right;margin-left: 0.5em;">
+              <% for (let i = 0; i < 10; i++) {
+                var count = 1;
+                count = count+i;
+                
+              } %>
+              <h6>
+                ข้อมูลจ่ายยา	xxxxxxx</h6>
+            </div>
+          </div>
+          <div class="row " style="margin: 0.5em;">
+            <div class="row  " style="margin: 0.5em;" style="float: right;">
+              <div class="tab-pane fade show active">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item nav-pills" role="presentation">
+                <a class="nav-link active " id="home-tab" data-toggle="tab" href="#drugall" role="tab" aria-controls="drugall" aria-selected="true">รายการยาทั้งหมด
+                  <span class="badge badge-danger">xx</span>
+                </a>
+              </li>
+              <li class="nav-item nav-pills" role="presentation">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#pay" role="tab" aria-controls="pay" aria-selected="false">จ่ายแล้ว
+                  <span class="badge badge-danger">xx</span>
+                </a>
+              </li>
+
+              <li class="nav-item nav-pills" role="presentation">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#return" role="tab" aria-controls="return" aria-selected="false">คืนยา
+                  <span class="badge badge-danger">xx</span>
+                </a>
+              </li>
+              
+            </ul>
+            <div class="tab-content">
+                
+                <div class="tab-pane fade show active" id="drugall" role="tabpanel" aria-labelledby="home-tab">
+                  <div style="overflow: auto;height: 50%;position:absolute"  >
+                    <table class="table table-hover" >
+                      <thead class="thead-light" >
+                        <th>#</th>
+                        <th>รหัสยา</th>
+                        <th>ชื่อยา</th>
+                        <th>ชื่อมื้อยา</th>
+                        <th>ช่องลิ้นชักยา</th>
+                  
+                      </thead>
+                      <tbody class="text-center" >
+                    
+    
+                        <% for (let index = 1; index < 10; index++) {%>
+    
+                        <tr id="dex" >
+                          <td>1</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xx</td>
+                        </tr>
+    
+                        <%} %>
+    
+                      </tbody>
+    
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="pay" role="tabpanel" aria-labelledby="profile-tab">
+                  <div style="overflow: auto;height: 50%;position:absolute"  >
+                    <table class="table table-hover"  >
+                      <thead class="thead-light" >
+                        <th>#</th>
+                        <th>รหัสยา</th>
+                        <th>ชื่อยา</th>
+                        <th>ชื่อมื้อยา</th>
+                        <th>ช่องลิ้นชักยา</th>
+                      </thead>
+                      <tbody class="text-center" >
+                    
+    
+                        <% for (let index = 1; index < 10; index++) {%>
+    
+                        <tr id="dex" >
+                          <td>1</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xx</td>
+                        </tr>
+    
+                        <%} %>
+    
+                      </tbody>
+    
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="wait" role="tabpanel" aria-labelledby="contact-tab">
+                  <div style="overflow: auto;height: 50%;position:absolute"  id="wait">
+                    <table class="table table-hover" id="cb" >
+                      <thead class="thead-light" >
+                        <th>#</th>
+                        <th>รหัสยา</th>
+                        <th>ชื่อยา</th>
+                        <th>ชื่อมื้อยา</th>
+                        <th>ช่องลิ้นชักยา</th>
+                      </thead>
+                      <tbody class="text-center" >
+                        <% for (let index = 1; index < 10; index++) {%>
+    
+                        <tr id="dex" >
+                          <td>1</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xx</td>
+                        </tr>
+    
+                        <%} %>
+    
+                      </tbody>
+    
+                    </table>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="return" role="tabpanel" aria-labelledby="profile-tab">
+                  <div style="overflow: auto;height: 50%;position:absolute" >
+                    <table class="table table-hover"  >
+                      <thead class="thead-light" >
+                        <th>#</th>
+                        <th>รหัสยา</th>
+                        <th>ชื่อยา</th>
+                        <th>ชื่อมื้อยา</th>
+                        <th>ช่องลิ้นชักยา</th>
+                      </thead>
+                      <tbody class="text-center" >
+                    
+    
+                        <% for (let index = 1; index < 10; index++) {%>
+    
+                        <tr id="dex" >
+                          <td>1</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xxxxxx</td>
+                          <td>xx</td>
+                        </tr>
+    
+                        <%} %>
+    
+                      </tbody>
+    
+                    </table>
+                  </div>
+                </div>
+               
+            </div>
+            
+            </div>
+            
+          </div>
+      </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+</body>
+<script>
+  var  num = $('#dex').length;
+  $('body').scrollspy({ target: '#navbar-example' })
+  $(document).ready(function () { 
+   
+  });
+ 
+  if ($('#messages').click()) {
+      $('#messages').addClass('alert alert-success')
+    }else{
+      
+    }
+  
+  
+</script>
+
+</html>
