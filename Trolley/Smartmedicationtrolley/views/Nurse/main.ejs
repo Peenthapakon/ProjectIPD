@@ -1,6 +1,7 @@
 <%- include ../material/style.ejs %>
 
 <body>
+
   <%- include ../templetes/templete.ejs %>
   <div class="container" style="margin-top: 30px;">
     <div class="row">
@@ -9,7 +10,7 @@
 
           <div class="row">
             <div class="col-5 col-md-3 ">
-              <div class="profile-photo">
+              <div class="profile-photo mt-4 ml-3">
                 <img src="/images/good.png" alt="">
               </div>
             </div>
@@ -40,13 +41,19 @@
 
         </div>
         <div class="form-check-hn">
-          <form class="d-flex" action="/test/:id" method="POST">
-            <input class="form-control me-2" type="search" placeholder="ป้อนรหัสผู้ป่วย" aria-label="Search" name="id">
+          <form class="d-flex" action="" method="POST">
+            <input class="form-control me-2" type="text" placeholder="ป้อนรหัสผู้ป่วย" aria-label="Search" name="id">
             <button class="btn btn-outline-success" type="submit">Search</button>
           </form>
         </div>
-      </div>
 
+      </div>
+  <% if(messages.error) {%>
+    <div class="alert alert-danger" role="alert"><%= messages.error%></div>
+<%}%>
+<% if(messages.success) {%>
+    <div class="alert alert-success" role="alert"><%= messages.success%></div>
+<%}%>
       <div class="col-7">
 
       </div>

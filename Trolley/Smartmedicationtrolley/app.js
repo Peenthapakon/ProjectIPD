@@ -3,7 +3,9 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-const session = require('express-session');
+
+let flash = require('express-flash');
+let session = require('express-session');
 
 
 var indexRouter = require('./routes/index');
@@ -19,11 +21,18 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(cookieParser())
+
+
 app.use(session({
-  secret:'secret',
-  resave:true,
-  saveUninitialized:true
+  cookie:{maxAge:60000},
+  store:new session.MemoryStore,
+  saveUninitialized : true,
+  resave: 'true',
+  secret:'secret'
+
 }))
+app.use(flash());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

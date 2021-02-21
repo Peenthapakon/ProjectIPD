@@ -30,6 +30,11 @@ router.get('/main', function(req, res, next) {
 	// res.end();
 });
 
+
+
+
+
+
 // update รถเข็น
 router.get('/add', function(req, res, next) {
   db.all("SELECT * FROM nurse ",(err,rs)=>{
@@ -134,21 +139,24 @@ router.get('/detail/:id', function(req, res, next) {
       
 });
 
-router.post('/detail/:id', function(req, res, next) {
-    var data = req.params.id;
-     let item = req.body.drug
-     console.log(item)
-      drug.forEach((result,index)=>{
-        if (req.session.loggedin) {
-          req.flash('info',result)
-          res.redirect('/trolley/detail/'+data)
-      } else {
-        res.redirect('/');
-      }
-      res.end();
-          req.flash('info',result)
-          res.redirect('/trolley/detail/'+data)
-    })
+router.post('/detail/(:id)', function(req, res, next) {
+  let id =req.params.id;
+  console.log(id)
+    // var data = req.params.id;
+    // console.log(data);
+    //  let item = req.body.drug
+    //  console.log(item)
+    //   drug.forEach((result,index)=>{
+    //     if (req.session.loggedin) {
+    //       req.flash('info',result)
+    //       res.redirect('/trolley/detail/'+data)
+    //   } else {
+    //     res.redirect('/');
+    //   }
+    //   res.end();
+    //       req.flash('info',result)
+    //       res.redirect('/trolley/detail/'+data)
+    // })
 
 });
 
@@ -165,7 +173,8 @@ router.get('/delete/:id',(req,res) => {
 });
 
 
-// logiut
+
+// logout
 router.get('/logout',(req,res) => {
   req.session.destroy((err) => {
       if(err) {

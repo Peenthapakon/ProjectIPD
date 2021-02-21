@@ -17,7 +17,40 @@ router.get('/main', function(req, res, next) {
     })
    
   })
+
+ 
   
+
+  });
+  router.post('/main',(req, res, next)=>{
+    let id = req.body.id;
+  var sql = "SELECT * FROM patient "
+  var sql2 = "SELECT * from nurse JOIN trolley where nurse_id = 'N002'"
+    console.log(id);
+
+    if(id === ''){
+      req.flash('error','Book successfully');
+      res.redirect('/nurse/main')
+    }else{
+      db.all(sql,(err,result)=>{
+        if (err) {
+          throw err;
+        }
+        db.all(sql2,(err,rs)=>{
+          if (err) {
+            throw err;
+          }
+          req.flash('success','Book successfully');
+          res.render('./Nurse/main',{patients:result,nurse:rs})
+         //res.send({patients:result,nurse:rs})
+        })
+       
+      })
+    }
+  
+
+
+ 
 
   });
   router.get('/patient', function(req, res, next) {
@@ -58,4 +91,7 @@ router.get('/main', function(req, res, next) {
     res.end();
 
   });
+
+
+
   module.exports = router;

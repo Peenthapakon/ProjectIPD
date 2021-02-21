@@ -52,8 +52,8 @@
         </div>
 
         <div class="row" style="margin-top: 0.5em;">
-          <form class="form-inline" method="POST"   >
-            <input class="form-control mr-sm-2" type="search"  name="drug" placeholder="รหัสยา" aria-label="Search" width="">
+          <form class="form-inline" method="POST"  >
+            <input class="form-control mr-sm-2" type="text"  name="drug" placeholder="รหัสยา" aria-label="Search"  name="id">
             <button class="btn btn-outline-success" id="btn-1" type="submit">ยืนยัน</button>
           </form>
         </div>
@@ -87,8 +87,7 @@
         <!--แสดงรายละเอียดยา-->
         <!-- check trolley.num_drawer.id  แต่ละตัวเพื่อกำหนด drawer -->    
         <div   role="alert">
-          <%- messages() %>
-         
+        
         </div> 
         
         <!--row1-->
@@ -426,7 +425,7 @@
         
         <div class="collapse" id="patients"name="iframe_a" data-parent="#ece">
         
-          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;w">
+          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
             <div style="float:left;">
               <img src="/images/f1.jpg" alt="" class="img-thumbnail img-fluid" style="width: 130px;">
             </div>
@@ -478,7 +477,7 @@
 
         <div class="collapse" id="infodrug" data-parent="#ece">
             
-          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;w">
+          <div class="row" style="margin: 0.5em;padding: 1em;background-color:lightskyblue;border-radius: 0.2em;">
             <div style="float:left;">
               <img src="/images/info.png" alt="" class="img-thumbnail img-fluid" style="width: 130px;">
             </div>

@@ -41,8 +41,5 @@ router.post('/', function(req, res, next) {
   }
 
 });
-router.post('/test/(:id)',(req,res,next)=>{
-  let id = req.body.id;
-  console.log(id)
-})
+
 module.exports = router;
