@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 router.post('/', function(req, res, next) {
-   var username = req.body.username
+   var username = req.body.userName
    var password = req.body.password
 
    if (username && password) {
@@ -39,20 +39,10 @@ router.post('/', function(req, res, next) {
     res.send('กรุณากรอก username && password')
     res.end()
   }
-  //  if (username && password) {
-  //    db.all(`SELECT * FROM account WHERE username = ? AND password = ?`,[username,password],(err,result)=>{
-  //      if (result.length > 0) {
-  //       req.session.loggedin = true;
-  //       req.session.username = username;
-  //        res.redirect('trolley/main')
-  //      }else{
-  //        res.send('login ไม่สำเร็จ')
-  //      }
-  //    });
-  //  } else{
-  //    res.send('กรุณากรอก username && password')
-  //  }
 
 });
-
+router.post('/test/(:id)',(req,res,next)=>{
+  let id = req.body.id;
+  console.log(id)
+})
 module.exports = router;

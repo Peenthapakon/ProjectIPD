@@ -6,17 +6,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <style>
+    body{
+    background-image: url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+  
+   
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-
-<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+}
+  </style>
 </head>
 
-<body>
-  <div class="container">
+<body >
+  <!-- <div class="container">
     <div class="row" style="padding:10em;">
       <div class="col-lx-6 text-center" >
         <img src="/images/wu.png" alt="" width="220px" height="auto">
@@ -34,6 +35,32 @@
         </div>
           <a href="./trolley/main">จัดยา</a>
           <a href="./Nurse/main">จ่ายยา</a> 
+    </div> -->
+
+    <div class="container" style="margin-top:100px;"> 
+    <div class="card" style="width: 50%;margin-left: auto;margin-right: auto;">
+      <div class="card-header">
+        <img src="/images/wu.png"  width="220px" style="display: block;margin-left: auto;margin-right: auto;" >
+      </div>
+      <div class="card-body">
+        <form action="" method="POST">
+          <div class="form-group">
+            <label for="">ชื่อผู้ใช้</label>
+            <input type="text" class="form-control" name="userName">
+          </div>
+          <div class="form-group">
+            <label for="">รหัสผ่าน</label>
+            <input type="password"  class="form-control" name="password">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-info" value="เข้าสู่ระบบ">
+            
+          </div>
+          
+        </form>
+      </div>
+    </div>
+    </div>
 </body>
 
 </html>
